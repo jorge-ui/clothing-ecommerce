@@ -1,13 +1,11 @@
 import React from "react";
-import './App.styles.css'
-import HomePage from "./pages/homepage/home-page.component";
+import "./App.styles.css";
+import HomePage from "./pages/home-page/home-page.component";
 
-function App() {
-  return (
-    <div>
-      <HomePage />
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <HomePage />
+  </div>
+);
 
 export default App;
