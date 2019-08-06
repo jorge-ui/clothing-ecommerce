@@ -3,12 +3,17 @@ import './App.styles.css';
 // Components
 import HomePage from './pages/home-page/home-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
-import { Route } from 'react-router-dom';
+import Header from './components/header/header.component';
+
+import { Route, Switch } from 'react-router-dom';
 
 const App = () => (
   <div className="App">
-    <Route exact path="/" component={HomePage} />
-    <Route exact path="/shop" component={ShopPage} />
+    <Header />
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/shop" component={ShopPage} />
+    </Switch>
   </div>
 );
 

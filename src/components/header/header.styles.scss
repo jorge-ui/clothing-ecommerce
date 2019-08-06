@@ -1,0 +1,43 @@
+.header {
+  position: relative;
+  height: 70px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  background-color: rgba(218, 218, 218, 0.673);
+
+  .logo-container {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    svg {
+      height: 80%;
+      width: 80%;
+    }
+  }
+
+  .links {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .link {
+      padding: 0 15px;
+      height: 100%;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 200ms;
+      &:hover {
+        background-color: rgba(86, 86, 86, 0.319);
+      }
+    }
+  }
+}

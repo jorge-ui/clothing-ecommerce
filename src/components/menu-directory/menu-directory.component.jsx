@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './directory-menu.styles.scss';
+import './menu-directory.styles.scss';
 
 import MenuItem from '../menu-item/menu-item.component';
 
-const DirectoryMenu = () => {
+const MenuDirectory = () => {
   const [sections] = useState([
     {
       title: 'hats',
@@ -40,7 +40,7 @@ const DirectoryMenu = () => {
   ]);
 
   return (
-    <div className="directory-menu">
+    <div className="menu-directory">
       {sections.map(({ id, ...rest }) => (
         <MenuItem key={id} {...rest} />
       ))}
@@ -48,4 +48,4 @@ const DirectoryMenu = () => {
   );
 };
 
-export default DirectoryMenu;
+export default MenuDirectory;
