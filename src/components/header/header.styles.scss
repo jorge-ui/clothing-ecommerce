@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    
     .link {
       padding: 0 15px;
       height: 100%;
@@ -35,6 +35,7 @@
       align-items: center;
       justify-content: center;
       transition: background-color 200ms;
+      cursor: pointer;
       &:hover {
         background-color: rgba(86, 86, 86, 0.319);
       }
