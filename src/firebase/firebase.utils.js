@@ -14,13 +14,40 @@ const config = {
   appId: '1:1079229993881:web:5f4cae4d6f9f3fb7'
 };
 
+export const createUserDoc = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  // prepare query ref and snap
+  let docRef = db.doc(`users/${userAuth.uid}`);
+  let docSnap = await docRef.get();
+
+  // if empty doc, create
+  if (!docSnap.exists) {
+    let { displayName, email } = userAuth; // doc properties
+    let createdAt = new Date(); // doc created date
+
+    try {
+      // write the newly created doc to the firestore
+      await docRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log('Error creating user.', error);
+    }
+  }
+
+  return docRef;
+};
+
 // initialize firebaseApp
 firebase.initializeApp(config);
 
 // last, we export any utils we want to use on our app
 
 export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const db = firebase.firestore();
 
 // custom options for signIn util
 const authProvider = new firebase.auth.GoogleAuthProvider();

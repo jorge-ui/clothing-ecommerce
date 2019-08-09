@@ -1,5 +1,6 @@
 import React from 'react';
 import './form-input.styles.scss';
+import PropTypes from 'prop-types';
 
 const FormInput = ({ handleChange, label, ...otherProps }) => {
   let shrinked = Boolean(otherProps.value);
@@ -13,6 +14,11 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
       ) : null}
     </div>
   );
+};
+
+FormInput.propTypes = {
+  handleChange: PropTypes.func,
+  label: PropTypes.string
 };
 
 export default FormInput;
