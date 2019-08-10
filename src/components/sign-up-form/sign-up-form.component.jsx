@@ -27,14 +27,13 @@ class SignUpForm extends Component {
     }
 
     try {
-      // Create a new user on the firebase auth
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      // Store that new user on our database
+
       await createUserDoc(user, { displayName });
-      // Reset to initial state upon success
+
       this.setState({
         displayName: '',
         email: '',
@@ -42,7 +41,6 @@ class SignUpForm extends Component {
         confirmPassword: ''
       });
     } catch (error) {
-      // Handle Errors here.
       switch (error.code) {
         case 'auth/email-already-in-use':
           return alert('Email address already exists.');
@@ -91,6 +89,7 @@ class SignUpForm extends Component {
             value={password}
             handleChange={this.handleChange}
             label="Password"
+            autoComplete="off"
             required
           />
           <FormInput
@@ -99,6 +98,7 @@ class SignUpForm extends Component {
             value={confirmPassword}
             handleChange={this.handleChange}
             label="Confirm Password"
+            autoComplete="off"
             required
           />
           <CustomButton type="submit">SIGN UP</CustomButton>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './sign-in-form.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoggle } from '../../firebase/firebase.utils';
+import { signInWithGoggle, auth } from '../../firebase/firebase.utils';
 
 class SignInForm extends Component {
   constructor(props) {
@@ -14,12 +14,31 @@ class SignInForm extends Component {
     };
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    this.setState({
-      email: '',
-      password: ''
-    });
+    const { email, password } = this.state;
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+
+      this.setState({
+        email: '',
+        password: ''
+      });
+    } catch (error) {
+      switch (error.code) {
+        case 'auth/invalid-email':
+          return alert('Not a valid email address.');
+        case 'auth/user-disabled':
+          return alert('The user for that email has beed disabled.');
+        case 'auth/user-not-found':
+          return alert('There is no user with that email.');
+        case 'auth/wrong-password':
+          return alert('Password is invalid.');
+        default:
+          console.error(error);
+          return alert(`An unknown error ocurred. ${error}.`);
+      }
+    }
   };
 
   handleChange = e => {
