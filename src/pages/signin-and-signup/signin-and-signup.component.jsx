@@ -1,11 +1,14 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import './signin-and-signup.styles.scss';
+// Components
 import SignInForm from '../../components/sign-in-form/sign-in-form.component';
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
+// Modules
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const SigninAndSignup = () => {
-  if (localStorage.getItem('user')) {
+const SigninAndSignup = ({ currentUser }) => {
+  if (currentUser) {
     return <Redirect to="/shop" />;
   } else {
     return (
@@ -20,4 +23,8 @@ const SigninAndSignup = () => {
   }
 };
 
-export default SigninAndSignup;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(SigninAndSignup);
