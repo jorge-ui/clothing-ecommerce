@@ -1,0 +1,29 @@
+@import "../variables";
+
+.nav-link {
+  position: relative;
+  padding: 0 15px;
+  height: 100%;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms;
+  cursor: pointer;
+  &:hover .hovered {
+    height: 100%;
+    opacity: 1;
+  }
+
+  .hovered {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    transition: height 400ms $easeOut, opacity 400ms $easeOut;
+    background-color: $darkerGrey;
+    z-index: -1;
+  }
+}

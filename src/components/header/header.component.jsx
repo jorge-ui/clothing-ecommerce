@@ -1,6 +1,9 @@
 import React from 'react';
 import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+// Components
+import Cart from '../cart/cart.component';
+import NavLink from '../nav-link/nav-link.component';
 //Modules
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
@@ -12,21 +15,14 @@ const Header = ({ currentUser }) => (
       <Logo className="logo" />
     </Link>
     <div className="links">
-      <Link className="link" to="/shop">
-        SHOP
-      </Link>
-      <Link className="link" to="/contact">
-        CONTACT
-      </Link>
+      <NavLink to="/shop">SHOP</NavLink>
+      <NavLink to="/contact">CONTACT</NavLink>
       {currentUser ? (
-        <div className="link" onClick={() => auth.signOut()}>
-          SIGN OUT
-        </div>
+        <NavLink onClick={() => auth.signOut()}>SIGN OUT</NavLink>
       ) : (
-        <Link className="link" to="/signin">
-          SIGN IN
-        </Link>
+        <NavLink to="/signin">SIGN IN</NavLink>
       )}
+      <Cart />
     </div>
   </div>
 );
