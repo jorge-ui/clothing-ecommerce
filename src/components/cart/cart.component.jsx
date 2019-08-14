@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './cart.styles.scss';
 import { ReactComponent as Icon } from '../../assets/shopping-bag.svg';
 // Components
-import CartPreview from '../cart-preview/cart-preview.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 // Modules
 import { connect } from 'react-redux';
 
@@ -19,7 +19,7 @@ const Cart = ({ currentUser }) => {
         <span className="item-count">0</span>
         <div className="hovered" revealed={String(showPreview)} />
       </div>
-      <CartPreview
+      <CartDropdown
         revealed={String(showPreview)}
         onMouseEnter={() => setShowPreview(true)}
         onMouseLeave={() => setShowPreview(false)}

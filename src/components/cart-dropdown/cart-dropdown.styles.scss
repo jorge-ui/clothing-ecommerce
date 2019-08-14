@@ -1,0 +1,39 @@
+@import "../variables";
+
+.cart-dropdown {
+  overflow: hidden;
+  position: absolute;
+  box-sizing: border-box;
+  top: 100%;
+  right: 0;
+  width: $headerHeight;
+  height: 0;
+  transition: height 200ms cubic-bezier(.46,.15,.88,.45), width 200ms cubic-bezier(.46,.15,.88,.45);
+  background-color: hsla(0, 0%, 75%, 0.75);
+  z-index: 10;
+  &[revealed=true] {
+    height: 300px;
+    width: 250px;
+    transition: height 200ms 200ms cubic-bezier(.09,.55,.47,.94), width 200ms 200ms cubic-bezier(.09,.55,.47,.94);
+
+    .content {
+      opacity: 1;
+      transition: opacity 200ms 400ms;
+    }
+  }
+
+  .content {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    transition: opacity 200ms;
+  }
+
+}
