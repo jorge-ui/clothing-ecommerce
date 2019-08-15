@@ -1,14 +1,17 @@
 @import "../variables";
 
 .header {
-  position: relative;
+  position: fixed;
+  z-index: 10;
+  left: 8vw;
+  right: 8vw;
+  top: 0;
   height: $headerHeight;
-  width: 100%;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
-  background-color: rgba(218, 218, 218, 0.673);
+  background-color: #E6E6E6;
 
   .logo-container {
     width: $headerHeight;
