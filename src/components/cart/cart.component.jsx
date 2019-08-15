@@ -6,7 +6,8 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 // Modules
 import { connect } from 'react-redux';
 
-const Cart = ({ currentUser }) => {
+const Cart = ({ currentUser, cartItems }) => {
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const [showPreview, setShowPreview] = useState(false);
   return (
     <div className="cart">
@@ -16,7 +17,7 @@ const Cart = ({ currentUser }) => {
         onMouseLeave={() => setShowPreview(false)}
       >
         <Icon className="icon" />
-        <span className="item-count">0</span>
+        <span className="item-count">{cartCount}</span>
         <div className="hovered" revealed={String(showPreview)} />
       </div>
       <CartDropdown
@@ -28,9 +29,13 @@ const Cart = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = ({ user: { currentUser }, cart: { showPreview } }) => ({
+const mapStateToProps = ({
+  user: { currentUser },
+  cart: { showPreview, cartItems }
+}) => ({
   currentUser,
-  showPreview
+  showPreview,
+  cartItems
 });
 
 export default connect(mapStateToProps)(Cart);
