@@ -4,32 +4,52 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { addItem } from '../../redux/cart/cart.actions';
+import { useTransition, animated } from 'react-spring';
+import { useGesture } from 'react-use-gesture';
 
 const CollectionItem = ({ item, addItem }) => {
-  const [willAdd, setWillAdd] = useState(false);
-  const [didAdd, setDidAdd] = useState(false);
+  // Component state
+  const [pressed, setPressed] = useState(false);
+
+  // Gestures
+  const bind = useGesture({
+    onDrag: ({ down }) => setPressed(down)
+  });
+  // Transition group
+  const transition = useTransition(pressed, null, {
+    from: {
+      transform: 'scale(0)',
+      opacity: 0.4
+    },
+    enter: { transform: 'scale(10)' },
+    leave: { opacity: 0 },
+    config: {
+      mass: 6,
+      tension: 370,
+      friction: 20,
+      clamp: true
+    }
+  });
   const { name, price, imageUrl } = item;
   return (
-    <div className="collection-item">
+    <div className={`${pressed ? 'pressed' : ''} collection-item`}>
       <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
       <footer className="collection-footer">
         <span className="name">{name}</span>
         <span className="price">${price}</span>
       </footer>
       <div
+        {...bind()}
         className="add-to-cart-button"
         onClick={() => addItem(item)}
-        onMouseDown={() => setWillAdd(true)}
-        onMouseUp={() => setDidAdd(true)}
       >
         <Icon icon="cart-plus" className="cart-plus" />
         <Icon icon="plus" className="plus" />
       </div>
-      <div
-        className="overlay"
-        willadd={String(willAdd)}
-        didadd={String(didAdd)}
-      />
+      {transition.map(
+        ({ item, key, props }) =>
+          item && <animated.div className="overlay" key={key} style={props} />
+      )}
     </div>
   );
 };
