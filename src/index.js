@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-
 library.add(faPlus, faCartPlus);
 
 ReactDOM.render(

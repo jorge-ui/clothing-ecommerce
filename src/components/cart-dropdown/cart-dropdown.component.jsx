@@ -2,10 +2,11 @@ import React from 'react';
 import './cart-dropdown.styles.scss';
 // Components
 import CustomButton from '../custom-button/custom-button.component';
+import CartItem from '../cart-item/cart-item.component';
 // Modules
 import { animated, useSpring } from 'react-spring';
 
-const CartDropdown = ({ revealed, setShowPreview }) => {
+const CartDropdown = ({ revealed, setShowPreview, cartItems }) => {
   const { height } = useSpring({
     height: revealed ? 300 : 0,
     config: {
@@ -27,11 +28,19 @@ const CartDropdown = ({ revealed, setShowPreview }) => {
       onMouseLeave={() => setShowPreview(false)}
     >
       <div className="content" revealed={String(revealed)}>
-        <div className="cart-items">Items</div>
+        <div className="cart-items" count={cartItems.length}>
+          {cartItems.length
+            ? cartItems.map(item => <CartItem key={item.id} item={item} />)
+            : '0 items on cart'}
+        </div>
         <CustomButton>GO TO CHECKOUT</CustomButton>
       </div>
     </animated.div>
   );
+};
+
+CartDropdown.defaultProps = {
+  cartItems: []
 };
 
 export default CartDropdown;

@@ -21,7 +21,11 @@ const Cart = ({ currentUser, cartItems }) => {
         <span className="item-count">{cartCount}</span>
         <div className="hovered" revealed={String(showPreview)} />
       </div>
-      <CartDropdown revealed={showPreview} setShowPreview={setShowPreview} />
+      <CartDropdown
+        revealed={showPreview}
+        setShowPreview={setShowPreview}
+        cartItems={cartItems}
+      />
     </div>
   );
 };
