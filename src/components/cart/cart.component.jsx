@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 const Cart = ({ currentUser, cartItems }) => {
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const [showPreview, setShowPreview] = useState(false);
+
   return (
     <div className="cart">
       <div
@@ -20,11 +21,7 @@ const Cart = ({ currentUser, cartItems }) => {
         <span className="item-count">{cartCount}</span>
         <div className="hovered" revealed={String(showPreview)} />
       </div>
-      <CartDropdown
-        revealed={String(showPreview)}
-        onMouseEnter={() => setShowPreview(true)}
-        onMouseLeave={() => setShowPreview(false)}
-      />
+      <CartDropdown revealed={showPreview} setShowPreview={setShowPreview} />
     </div>
   );
 };

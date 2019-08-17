@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     transition: width 400ms $easeOut;
+    z-index: 10;
   
     .icon {
       height: 50%;
@@ -36,7 +37,7 @@
       &[revealed=true] {
         height: 100%;
         opacity: 1;
-        transition: height 200ms cubic-bezier(.46,.15,.88,.45), opacity 200ms;
+        transition: unset;
       }
     }
   

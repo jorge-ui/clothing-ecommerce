@@ -5,21 +5,20 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { addItem } from '../../redux/cart/cart.actions';
 import { useTransition, animated } from 'react-spring';
-import { useGesture } from 'react-use-gesture';
+import { useDrag } from 'react-use-gesture';
 
 const CollectionItem = ({ item, addItem }) => {
   // Component state
   const [pressed, setPressed] = useState(false);
 
   // Gestures
-  const bind = useGesture({
-    onDrag: ({ down }) => setPressed(down)
-  });
+  const bind = useDrag(({ down }) => setPressed(down));
+
   // Transition group
   const transition = useTransition(pressed, null, {
     from: {
       transform: 'scale(0)',
-      opacity: 0.4
+      opacity: 0.5
     },
     enter: { transform: 'scale(10)' },
     leave: { opacity: 0 },
@@ -28,7 +27,8 @@ const CollectionItem = ({ item, addItem }) => {
       tension: 370,
       friction: 20,
       clamp: true
-    }
+    },
+    trail: 50
   });
   const { name, price, imageUrl } = item;
   return (
