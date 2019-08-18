@@ -32,7 +32,7 @@
       height: 0;
       opacity: 0;
       background-color: $darkerGrey;
-      transition: height 200ms 200ms cubic-bezier(.09,.55,.47,.94), opacity 200ms 400ms;
+      transition: height 200ms 300ms cubic-bezier(.09,.55,.47,.94), opacity 200ms 400ms;
       z-index: -1;
       &[revealed=true] {
         height: 100%;

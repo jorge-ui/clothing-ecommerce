@@ -12,7 +12,7 @@ const CartDropdown = ({ revealed, setShowPreview, cartItems }) => {
     config: {
       mass: 1,
       tension: 470,
-      friction: 35,
+      friction: 39,
       clamp: revealed ? false : true
     }
   });
@@ -29,9 +29,12 @@ const CartDropdown = ({ revealed, setShowPreview, cartItems }) => {
     >
       <div className="content" revealed={String(revealed)}>
         <div className="cart-items" count={cartItems.length}>
-          {cartItems.length
-            ? cartItems.map(item => <CartItem key={item.id} item={item} />)
-            : '0 items on cart'}
+          {!cartItems.length
+            ? '0 items on cart'
+            : revealed &&
+              cartItems.map((item, i) => (
+                <CartItem key={item.id} item={item} i={i} />
+              ))}
         </div>
         <CustomButton>GO TO CHECKOUT</CustomButton>
       </div>

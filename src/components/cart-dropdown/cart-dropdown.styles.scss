@@ -10,7 +10,7 @@
   right: 0;
   width: $headerHeight;
   height: 0;
-  background-color: hsla(0, 0%, 69%, 0.9);
+  background-color: hsla(0, 0%, 71%, 0.95);
   z-index: 0;
 
   .content {
@@ -31,8 +31,13 @@
     }
     .cart-items {
       overflow-y: scroll;
+      overflow-x: hidden;
+      width: 90%;
       flex: 1;
       margin-bottom: 20px;
+      text-align: center;
+      mask-image: linear-gradient(to bottom, white, white 10px, white 90%, transparent);
+      font-weight: bold;
       &[count='0'] {
         overflow-y: unset;
       }
@@ -41,12 +46,13 @@
         border-radius: 10px;
         background-color: transparent;
       }
-
+      
       &::-webkit-scrollbar {
         width: 9px;
       }
-
+      
       &::-webkit-scrollbar-thumb {
+        z-index: 100;
         border-radius: 10px;
         box-shadow: inset 0 0 6px rgba(0,0,0,.3);
         background-color: #555;
