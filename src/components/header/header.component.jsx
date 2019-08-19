@@ -8,6 +8,8 @@ import NavLink from '../nav-link/nav-link.component';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 const Header = ({ currentUser }) => (
   <div className="header">
@@ -27,8 +29,8 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 export default connect(mapStateToProps)(Header);

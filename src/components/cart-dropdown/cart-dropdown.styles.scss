@@ -27,7 +27,7 @@
     transition: opacity 100ms;
     &[revealed=true] {
       opacity: 1;
-      transition: opacity 400ms 200ms;
+      transition: opacity 400ms 100ms;
     }
     .cart-items {
       overflow-y: scroll;

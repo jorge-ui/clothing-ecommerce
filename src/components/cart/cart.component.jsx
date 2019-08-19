@@ -5,38 +5,37 @@ import { ReactComponent as Icon } from '../../assets/shopping-bag.svg';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 // Modules
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 const Cart = ({ currentUser, cartItems }) => {
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const [showPreview, setShowPreview] = useState(false);
+  const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <div className="cart">
       <div
         className={`${currentUser ? 'revealed' : ''} cart-icon`}
-        onMouseEnter={() => setShowPreview(true)}
-        onMouseLeave={() => setShowPreview(false)}
+        onMouseEnter={() => setShowDropdown(true)}
+        onMouseLeave={() => setShowDropdown(false)}
       >
         <Icon className="icon" />
-        <span className="item-count">{cartCount}</span>
-        <div className="hovered" revealed={String(showPreview)} />
+        <span className="item-count">{itemsCount}</span>
+        <div className="hovered" revealed={String(showDropdown)} />
       </div>
       <CartDropdown
-        revealed={showPreview}
-        setShowPreview={setShowPreview}
+        revealed={showDropdown}
+        setShowDropdown={setShowDropdown}
         cartItems={cartItems}
       />
     </div>
   );
 };
 
-const mapStateToProps = ({
-  user: { currentUser },
-  cart: { showPreview, cartItems }
-}) => ({
-  currentUser,
-  showPreview,
-  cartItems
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  cartItems: selectCartItems
 });
 
 export default connect(mapStateToProps)(Cart);

@@ -15,24 +15,11 @@ const CollectionItem = ({ item, addItem }) => {
   const bind = useDrag(({ down }) => setPressed(down));
 
   // Transition group
-  const transition = useTransition(pressed, null, {
-    from: {
-      transform: 'scale(0)',
-      opacity: 0.5
-    },
-    enter: { transform: 'scale(10)' },
-    leave: { opacity: 0 },
-    config: {
-      mass: 6,
-      tension: 370,
-      friction: 20,
-      clamp: true
-    },
-    trail: 50
-  });
+  const transition = useTransition(pressed, null, transitionConfig);
+
   const { name, price, imageUrl } = item;
   return (
-    <div className={`${pressed ? 'pressed' : ''} collection-item`}>
+    <div className="collection-item" pressed={String(pressed)}>
       <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
       <footer className="collection-footer">
         <span className="name">{name}</span>
@@ -70,3 +57,19 @@ export default connect(
   null,
   mapActionsToProps
 )(CollectionItem);
+
+const transitionConfig = {
+  from: {
+    transform: 'scale(0)',
+    opacity: 0.5
+  },
+  enter: { transform: 'scale(10)' },
+  leave: { opacity: 0 },
+  config: {
+    mass: 6,
+    tension: 370,
+    friction: 20,
+    clamp: true
+  },
+  trail: 50
+};

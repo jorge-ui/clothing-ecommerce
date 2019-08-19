@@ -6,7 +6,7 @@ import CartItem from '../cart-item/cart-item.component';
 // Modules
 import { animated, useSpring } from 'react-spring';
 
-const CartDropdown = ({ revealed, setShowPreview, cartItems }) => {
+const CartDropdown = ({ revealed, setShowDropdown, cartItems }) => {
   const { height } = useSpring({
     height: revealed ? 300 : 0,
     config: {
@@ -24,8 +24,8 @@ const CartDropdown = ({ revealed, setShowPreview, cartItems }) => {
         height: height.interpolate(h => h),
         width: height.interpolate([0, 300], [70, 250]).interpolate(h => h)
       }}
-      onMouseEnter={() => setShowPreview(true)}
-      onMouseLeave={() => setShowPreview(false)}
+      onMouseEnter={() => setShowDropdown(true)}
+      onMouseLeave={() => setShowDropdown(false)}
     >
       <div className="content" revealed={String(revealed)}>
         <div className="cart-items" count={cartItems.length}>

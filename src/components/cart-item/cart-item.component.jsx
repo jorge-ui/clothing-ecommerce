@@ -8,7 +8,7 @@ const CartItem = ({
 }) => {
   const [reveal, setReveal] = useState(false);
   useEffect(() => {
-    const tiemout = setTimeout(() => setReveal(true), 250 + 60 * i);
+    const tiemout = setTimeout(() => setReveal(true), 100 + 60 * i);
     return () => clearTimeout(tiemout);
   }, [i]);
   return (
