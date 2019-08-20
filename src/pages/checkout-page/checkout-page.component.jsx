@@ -5,21 +5,38 @@ import CheckoutItem from '../../components/checkout-item/checkout-item.component
 // Modules
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { useTransition } from 'react-spring';
+import { useTransition, animated } from 'react-spring';
 import {
   selectCartItems,
   selectCartTotal
 } from '../../redux/cart/cart.selectors';
 
+const easeOutCubic = t => --t * t * t + 1;
+const easeOutQuart = t => 1 - --t * t * t * t;
+
 const transitionConfig = {
+  unique: true,
+  trail: 55,
   from: {
-    opacity: 1
+    opacity: 0,
+    transform: 'translate(0px, 100px)',
+    height: 130
   },
-  leave: {
-    opacity: 0
+  enter: {
+    opacity: 1,
+    transform: 'translate(0px, 0px)'
+  },
+  leave: item => async next => {
+    await next({
+      opacity: 0,
+      transform: 'translate(-200px, 0px)',
+      config: { duration: 200, easing: easeOutCubic }
+    });
+    await next({ height: 0, config: { duration: 400, easing: easeOutQuart } });
   },
   config: {
-    duration: 600
+    duration: 400,
+    easing: easeOutCubic
   }
 };
 
@@ -49,9 +66,13 @@ const CheckoutPage = ({ cartItems, cartTotal }) => {
           <span>Remove</span>
         </div>
       </div>
-      {transition.map(({ item, key }) => (
-        <CheckoutItem item={item} key={key} />
-      ))}
+      <div className="checkout-items">
+        {transition.map(({ item, key, props }) => (
+          <animated.div key={key} style={props} className="animated-item">
+            <CheckoutItem item={item} />
+          </animated.div>
+        ))}
+      </div>
       <div className="cart-total">
         <span>TOTAL: ${cartTotal}</span>
       </div>

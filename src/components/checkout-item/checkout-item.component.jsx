@@ -23,14 +23,7 @@ const transitionConfig = {
   }
 };
 
-const CheckoutItem = ({
-  item,
-  addItem,
-  clearItem,
-  removeItem,
-  ...otherProps
-}) => {
-  const [removed, setRemoved] = useState(false);
+const CheckoutItem = ({ item, addItem, clearItem, removeItem }) => {
   const [addUp, setAddUp] = useState(true);
   const { id, name, price, imageUrl, quantity } = item;
 
@@ -46,22 +39,8 @@ const CheckoutItem = ({
     }
   });
 
-  function startClear() {
-    setRemoved(true);
-    clearItem(id);
-  }
-
-  function removeOrClear() {
-    if (item.quantity < 2) {
-      return startClear();
-    } else {
-      setAddUp(false);
-      removeItem(item.id);
-    }
-  }
-
   return (
-    <div className="checkout-item" {...otherProps} removed={String(removed)}>
+    <div className="checkout-item">
       <div className="image-container">
         <div className="image-wrap">
           <img src={imageUrl} alt="item" />
@@ -69,7 +48,10 @@ const CheckoutItem = ({
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        <div onClick={removeOrClear} className="arrow">
+        <div
+          onClick={() => removeItem(item) & setAddUp(false)}
+          className="arrow"
+        >
           <span>&#10094;</span>
         </div>
         <span className="value">
@@ -85,7 +67,7 @@ const CheckoutItem = ({
       </span>
       <span className="price">${price}</span>
       <span className="remove-button">
-        <span onClick={startClear}>&#10006;</span>
+        <span onClick={() => clearItem(id)}>&#10006;</span>
       </span>
     </div>
   );

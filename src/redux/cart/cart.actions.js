@@ -10,7 +10,7 @@ export const clearItem = id => ({
   payload: id
 });
 
-export const removeItem = id => ({
+export const removeItem = item => ({
   type: REMOVE_ITEM,
-  payload: id
+  payload: item
 });
