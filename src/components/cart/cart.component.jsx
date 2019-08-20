@@ -7,10 +7,9 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { selectCartQuantity } from '../../redux/cart/cart.selectors';
 
-const Cart = ({ currentUser, cartItems }) => {
-  const itemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+const Cart = ({ currentUser, cartQuantity }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
@@ -21,21 +20,17 @@ const Cart = ({ currentUser, cartItems }) => {
         onMouseLeave={() => setShowDropdown(false)}
       >
         <Icon className="icon" />
-        <span className="item-count">{itemsCount}</span>
+        <span className="item-count">{cartQuantity}</span>
         <div className="hovered" revealed={String(showDropdown)} />
       </div>
-      <CartDropdown
-        revealed={showDropdown}
-        setShowDropdown={setShowDropdown}
-        cartItems={cartItems}
-      />
+      <CartDropdown revealed={showDropdown} setShowDropdown={setShowDropdown} />
     </div>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  cartItems: selectCartItems
+  cartQuantity: selectCartQuantity
 });
 
 export default connect(mapStateToProps)(Cart);

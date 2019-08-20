@@ -5,10 +5,15 @@ import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
 // Modules
 import { animated, useSpring } from 'react-spring';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
-const CartDropdown = ({ revealed, setShowDropdown, cartItems }) => {
-  const { height } = useSpring({
+const CartDropdown = ({ revealed, setShowDropdown, cartItems, history }) => {
+  const spring = useSpring({
     height: revealed ? 300 : 0,
+    width: revealed ? 250 : 70,
     config: {
       mass: 1,
       tension: 470,
@@ -16,34 +21,42 @@ const CartDropdown = ({ revealed, setShowDropdown, cartItems }) => {
       clamp: revealed ? false : true
     }
   });
-
+  function goToCheckOut() {
+    history.push('/checkout');
+    setShowDropdown(false);
+  }
   return (
     <animated.div
       className="cart-dropdown"
-      style={{
-        height: height.interpolate(h => h),
-        width: height.interpolate([0, 300], [70, 250]).interpolate(h => h)
-      }}
-      onMouseEnter={() => setShowDropdown(true)}
-      onMouseLeave={() => setShowDropdown(false)}
+      style={spring}
+      onMouseEnter={() => revealed && setShowDropdown(true)}
+      onMouseLeave={() => revealed && setShowDropdown(false)}
     >
       <div className="content" revealed={String(revealed)}>
         <div className="cart-items" count={cartItems.length}>
-          {!cartItems.length
-            ? '0 items on cart'
-            : revealed &&
-              cartItems.map((item, i) => (
-                <CartItem key={item.id} item={item} i={i} />
-              ))}
+          {!cartItems.length ? (
+            <span className="empty-message">Your cart is empty.</span>
+          ) : (
+            revealed &&
+            cartItems.map((item, i) => (
+              <CartItem key={item.id} item={item} i={i} />
+            ))
+          )}
         </div>
-        <CustomButton>GO TO CHECKOUT</CustomButton>
+        {history.location.pathname !== '/checkout' && (
+          <CustomButton onClick={goToCheckOut}>GO TO CHECKOUT</CustomButton>
+        )}
       </div>
     </animated.div>
   );
 };
 
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems
+});
+
 CartDropdown.defaultProps = {
   cartItems: []
 };
 
-export default CartDropdown;
+export default withRouter(connect(mapStateToProps)(CartDropdown));

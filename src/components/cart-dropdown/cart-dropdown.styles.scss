@@ -38,6 +38,14 @@
       text-align: center;
       mask-image: linear-gradient(to bottom, white, white 10px, white 90%, transparent);
       font-weight: bold;
+
+      .empty-message {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        top: 30%;
+      }
       &[count='0'] {
         overflow-y: unset;
       }

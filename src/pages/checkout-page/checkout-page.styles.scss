@@ -1,0 +1,51 @@
+.checkout-page {
+  width: 55%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto 0;
+
+  .checkout-header {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+    background-color: rgb(96, 96, 96);
+    
+    .header-block {
+      color: white;
+      text-transform: capitalize;
+      text-align: center;
+      width: 23%;
+
+      &:last-child {
+        text-transform: capitalize;
+        text-align: center;
+        width: 8%;
+      }
+    }
+  }
+
+  .cart-total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 36px;
+  }
+
+}
+// Lapto
+@media only screen and (max-width: 992px) {
+  .checkout-page {
+    width: 75%;
+  }
+}
+
+// Tablet
+@media only screen and (max-width: 768px) {
+  .checkout-page {
+    width: 100%;
+  }
+}

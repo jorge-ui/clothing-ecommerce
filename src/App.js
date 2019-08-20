@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './App.styles.css';
+import './App.styles.scss';
 // Components
 import HomePage from './pages/home-page/home-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 import Header from './components/header/header.component';
 import SigninAndSignup from './pages/signin-and-signup/signin-and-signup.component';
+import CheckoutPage from './pages/checkout-page/checkout-page.component';
 // Modules
 import { auth, createUserDoc } from './firebase/firebase.utils';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -54,6 +55,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/signin"
