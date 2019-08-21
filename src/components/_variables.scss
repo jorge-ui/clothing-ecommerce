@@ -1,6 +1,7 @@
 $headerHeight: 70px;
 $darkerGrey: hsl(0, 0%, 72%);
 $easeOut: cubic-bezier(.17,.67,.22,.94);
+$appGrey: #E6E6E6;
 
 @mixin fine-scrollbar {
   &::-webkit-scrollbar-track {
@@ -22,8 +23,7 @@ $easeOut: cubic-bezier(.17,.67,.22,.94);
 }
 @mixin fine-scrollbar-clean {
   &::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: transparent;
+    background-color: $appGrey;
   }
   
   &::-webkit-scrollbar {

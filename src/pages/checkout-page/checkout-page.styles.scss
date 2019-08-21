@@ -1,60 +1,89 @@
 @import "../../components//variables";
 
+$panelReview: 60%;
+$panelSummary: 100% - $panelReview;
+
 .checkout-page {
-  width: 55%;
-  min-height: 90vh;
+  width: 80%;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0 auto;
+  margin-top: -$headerHeight;
+  box-sizing: border-box;
+  padding-top: $headerHeight;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 50px auto 0;
+  & * {
+    box-sizing: border-box;
+  }
 
-  .checkout-header {
-    margin-top: 20px;
+  .checkout-panel {
     width: 100%;
-    padding: 10px 0;
+    height: 90%;
+    overflow: hidden;
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid darkgrey;
-    background-color: rgb(96, 96, 96);
+    // border-bottom: 1px solid darkgray;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.129);
+    .panel-review {
+      position: relative;
+      flex-basis: $panelReview;
+      overflow-y: scroll;
+      @include fine-scrollbar-clean;
+      .review-header {
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid darkgrey;
+        background-color: rgb(96, 96, 96);
+        position: sticky;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        
+        .header-block {
+          color: white;
+          text-transform: capitalize;
+          text-align: center;
+          width: 23%;
     
-    .header-block {
-      color: white;
-      text-transform: capitalize;
-      text-align: center;
-      width: 23%;
-
-      &:last-child {
-        text-transform: capitalize;
+          &:last-child {
+            text-transform: capitalize;
+            text-align: center;
+            width: 8%;
+          }
+        }
+      }
+    
+      .review-items {
+        position: relative;
+        width: 100%;
+        .animated-item {
+          width: 100%;
+        }
+      }
+    }
+    .panel-summary {
+      flex-basis: $panelSummary;
+      position: relative;
+      .summary-header {
+        width: 100%;
+        padding: 10px 0;
         text-align: center;
-        width: 8%;
+        background-color: rgb(96, 96, 96);
+        color: white;
+      }
+      .summary-total {
+        font-size: 36px;
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
       }
     }
   }
 
-  .checkout-items {
-    width: 100%;
-    .animated-item {
-      width: 100%;
-    }
-  }
 
-  .cart-total {
-    margin-top: 30px;
-    margin-left: auto;
-    font-size: 36px;
-  }
 
-}
-// Lapto
-@media only screen and (max-width: 992px) {
-  .checkout-page {
-    width: 75%;
-  }
-}
-
-// Tablet
-@media only screen and (max-width: 768px) {
-  .checkout-page {
-    width: 100%;
-  }
 }

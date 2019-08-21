@@ -49,32 +49,39 @@ const CheckoutPage = ({ cartItems, cartTotal }) => {
 
   return (
     <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
-          <span>Product</span>
+      <div className="checkout-panel">
+        <div className="panel-review">
+          <div className="review-header">
+            <div className="header-block">
+              <span>Product</span>
+            </div>
+            <div className="header-block">
+              <span>Description</span>
+            </div>
+            <div className="header-block">
+              <span>Quantity</span>
+            </div>
+            <div className="header-block">
+              <span>Price</span>
+            </div>
+            <div className="header-block">
+              <span>Clear</span>
+            </div>
+          </div>
+          <div className="review-items">
+            {transition.map(({ item, key, props }) => (
+              <animated.div key={key} style={props} className="animated-item">
+                <CheckoutItem item={item} />
+              </animated.div>
+            ))}
+          </div>
         </div>
-        <div className="header-block">
-          <span>Description</span>
+        <div className="panel-summary">
+          <div className="summary-header">Summary</div>
+          <div className="summary-total">
+            <span>TOTAL: ${cartTotal}</span>
+          </div>
         </div>
-        <div className="header-block">
-          <span>Quantity</span>
-        </div>
-        <div className="header-block">
-          <span>Price</span>
-        </div>
-        <div className="header-block">
-          <span>Remove</span>
-        </div>
-      </div>
-      <div className="checkout-items">
-        {transition.map(({ item, key, props }) => (
-          <animated.div key={key} style={props} className="animated-item">
-            <CheckoutItem item={item} />
-          </animated.div>
-        ))}
-      </div>
-      <div className="cart-total">
-        <span>TOTAL: ${cartTotal}</span>
       </div>
     </div>
   );
