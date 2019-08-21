@@ -1,3 +1,39 @@
 $headerHeight: 70px;
 $darkerGrey: hsl(0, 0%, 72%);
 $easeOut: cubic-bezier(.17,.67,.22,.94);
+
+@mixin fine-scrollbar {
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: transparent;
+  }
+  
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
+}
+@mixin fine-scrollbar-clean {
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+  }
+  
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
+}
