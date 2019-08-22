@@ -2,6 +2,7 @@ import React from 'react';
 import './checkout-page.styles.scss';
 // Components
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import CheckoutForm from '../../components/checkout-form/checkout-form.component';
 // Modules
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -76,11 +77,12 @@ const CheckoutPage = ({ cartItems, cartTotal }) => {
             ))}
           </div>
         </div>
-        <div className="panel-summary">
-          <div className="summary-header">Summary</div>
-          <div className="summary-total">
-            <span>TOTAL: ${cartTotal}</span>
-          </div>
+        <div className="panel-order">
+          <div className="order-header">Order</div>
+          <CheckoutForm
+            price={cartTotal}
+            formdisabled={Boolean(cartItems.length === 0)}
+          />
         </div>
       </div>
     </div>

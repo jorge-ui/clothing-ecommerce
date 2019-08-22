@@ -1,0 +1,76 @@
+@import "../variables";
+
+.checkout-form {
+  position: relative;
+  padding: 0 10px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: opacity 300ms;
+  &[formdisabled=true] {
+    opacity: .3;
+    z-index: -1;
+    .disabled-div {
+      display: block;
+    }
+  }
+  .disabled-div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: none;
+  }
+  .form-input {
+    width: 100%;
+    margin: 5px auto;
+    // border: 1px solid red;
+    box-sizing: border-box;
+  }
+  .checkout-submit {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .total {
+      font-size: 1.5rem;
+    }
+    button {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      color: white;
+      background-color: rgb(109, 167, 224);
+      border-radius: 5px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 300ms, box-shadow 300ms;
+      font-size: 15px;
+      &:hover {
+        cursor: pointer;
+        transform: translateY(-3px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+  select {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.251);
+    padding: 10px 10px 10px 5px;
+    font-size: 15px;
+    // border-bottom: 1px solid #000;
+    margin: 10px 0;
+    outline: none;
+    @include fine-scrollbar;
+  }
+  .card {
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.251);
+    padding: 6px;
+  }
+  button.StripeCheckout {
+    display: none !important;
+  }
+}
