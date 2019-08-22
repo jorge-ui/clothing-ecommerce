@@ -73,7 +73,10 @@ class CheckoutForm extends Component {
           <span className="total">TOTAL: ${price}</span>
           <button type="submit">Place Order</button>
         </div>
-
+        <div className="warning-message">
+          <p>*Please use the following test credit card for payments*</p>
+          <p>4242 4242 4242 4242 -- Exp:01/20 -- CW: 123</p>
+        </div>
         <StripeCheckout
           label="Pay now"
           name="CRWN Clothing Ltd."

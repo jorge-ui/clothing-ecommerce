@@ -29,7 +29,7 @@
     box-sizing: border-box;
   }
   .checkout-submit {
-    margin-top: 20px;
+    margin: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,6 +69,14 @@
     border-radius: 5px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.251);
     padding: 6px;
+  }
+  .warning-message {
+    p {
+      margin: 0;
+      text-align: center;
+      color: red;
+      font-weight: bold;
+    }
   }
   button.StripeCheckout {
     display: none !important;
