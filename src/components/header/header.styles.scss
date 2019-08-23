@@ -3,8 +3,8 @@
 .header {
   position: fixed;
   z-index: 10;
-  left: 8vw;
-  right: 8vw;
+  left: $appXpadding;
+  right: $appXpadding;
   top: 0;
   height: $headerHeight;
   box-sizing: border-box;

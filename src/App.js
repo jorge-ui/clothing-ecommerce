@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import './App.styles.scss';
 // Components
 import HomePage from './pages/home-page/home-page.component';
@@ -7,29 +7,53 @@ import Header from './components/header/header.component';
 import SigninAndSignup from './pages/signin-and-signup/signin-and-signup.component';
 import CheckoutPage from './pages/checkout-page/checkout-page.component';
 // Modules
+import useRouter from './utils/useRouter';
+import { useTransition, animated } from 'react-spring';
 import { auth, createUserDoc } from './firebase/firebase.utils';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { easeOutQuart } from './utils/easingFuctions';
 // Actions
 import { setCurrentUser } from './redux/user/user.actions';
 
-class App extends Component {
-  unsubscribeFromAuth = () => null;
-  unsubscribeFromSnapshot = () => null;
+const transitionsConfig = {
+  from: {
+    opacity: 0,
+    transform: 'translate(0px, -60px)'
+  },
+  enter: {
+    opacity: 1,
+    transform: 'translate(0px, 0px)'
+  },
+  leave: item => async next => {
+    await next({ overflow: 'hidden', config: { duration: 5 } });
+    await next({
+      opacity: -1,
+      transform: 'translate(0px, 100px)'
+    });
+  },
+  config: {
+    duration: 400,
+    easing: easeOutQuart
+  }
+};
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
+const App = ({ setCurrentUser, currentUser }) => {
+  useEffect(() => {
+    let unsubscribeFromAuth = () => null;
+    let unsubscribeFromSnapshot = () => null;
+
     const localStoredUser = JSON.parse(localStorage.getItem('user'));
 
     setCurrentUser(localStoredUser);
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         // Login
         const userDocRef = await createUserDoc(userAuth);
-        this.unsubscribeFromSnapshot = userDocRef.onSnapshot(snapShot => {
+        unsubscribeFromSnapshot = userDocRef.onSnapshot(snapShot => {
           const user = { id: snapShot.id, ...snapShot.data() };
           localStorage.setItem('user', JSON.stringify(user));
           setCurrentUser(user);
@@ -40,38 +64,54 @@ class App extends Component {
         setCurrentUser(null);
       }
     });
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-    this.unsubscribeFromSnapshot();
-  }
+    return () => {
+      unsubscribeFromAuth();
+      unsubscribeFromSnapshot();
+    };
+  }, [setCurrentUser]);
 
-  render() {
-    const { currentUser } = this.props;
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={props =>
-              currentUser ? (
-                <Redirect to="/shop" />
-              ) : (
-                <SigninAndSignup {...props} />
-              )
-            }
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
+  const { location } = useRouter();
+  const transitions = useTransition(
+    location,
+    location => location.pathname,
+    transitionsConfig
+  );
+  const appPadding = !location.pathname.includes('shop') ? '8vw' : '0vw';
+  return (
+    <div className="App">
+      <Header />
+      {transitions.map(({ item, props, key }) => (
+        <animated.div
+          key={key}
+          style={{
+            ...props,
+            paddingLeft: appPadding,
+            paddingRight: appPadding
+          }}
+          className="transition-div"
+        >
+          <Switch location={item}>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/signin"
+              render={props =>
+                currentUser ? (
+                  <Redirect to="/shop" />
+                ) : (
+                  <SigninAndSignup {...props} />
+                )
+              }
+            />
+          </Switch>
+        </animated.div>
+      ))}
+    </div>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser

@@ -11,9 +11,7 @@ import {
   selectCartItems,
   selectCartTotal
 } from '../../redux/cart/cart.selectors';
-
-const easeOutCubic = t => --t * t * t + 1;
-const easeOutQuart = t => 1 - --t * t * t * t;
+import { easeOutCubic, easeOutQuart } from '../../utils/easingFuctions';
 
 const transitionConfig = {
   unique: true,

@@ -1,4 +1,5 @@
 import React from 'react';
+import './collections-overview.styles.scss';
 // Components
 import CollectionPreview from '../collection-preview/collection-preview.component';
 // Modules
@@ -8,6 +9,7 @@ import { selectCollectionsArray } from '../../redux/shop/shop.selectors';
 
 const CollectionsOverview = ({ shopCollections }) => (
   <div className="collections-overview">
+    <h1>COLLECTIONS</h1>
     {shopCollections.map(({ id, ...rest }) => (
       <CollectionPreview key={id} {...rest} />
     ))}

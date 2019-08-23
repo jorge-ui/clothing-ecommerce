@@ -1,4 +1,5 @@
 import React from 'react';
+import './shop-page.styles.scss';
 // Components
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import CollectionPage from '../collection-page/collection-page.component';
@@ -7,7 +8,6 @@ import { Route, Switch } from 'react-router-dom';
 
 const ShopPage = ({ match }) => (
   <div className="shop-page">
-    <h1>COLLECTIONS</h1>
     <Switch>
       <Route exact path={`${match.path}`} component={CollectionsOverview} />
       <Route

@@ -1,11 +1,28 @@
 @import "./components/variables";
 
 body {
-   padding: 20px 8vw;
-   padding-top: $headerHeight;
-   padding-bottom: 0;
+   overflow: hidden;
 }
 a {
    text-decoration: none;
    color: black;
+}
+.App {
+   position: relative;
+   @include fine-scrollbar;
+   height: 100vh;
+   padding: 0 $appXpadding;
+   box-sizing: border-box;
+   .transition-div {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding-top: $headerHeight;
+      width: 100%;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow: visible;
+   }
 }

@@ -1,0 +1,9 @@
+@import "../../components/variables";
+
+.shop-page {
+  box-sizing: border-box;
+  height: 100% ;
+  overflow-y: scroll;
+  padding: 0 $appXpadding;
+  @include fine-scrollbar-shop;
+}
