@@ -17,7 +17,7 @@ const config = {
 export const createUserDoc = async (userAuth, additionalData) => {
   if (!userAuth) return;
   // prepare query ref and snap
-  let docRef = db.doc(`users/${userAuth.uid}`);
+  let docRef = db.doc(`/users/${userAuth.uid}`);
   let docSnap = await docRef.get();
 
   // if empty doc, create
@@ -39,6 +39,24 @@ export const createUserDoc = async (userAuth, additionalData) => {
   }
 
   return docRef;
+};
+
+export const convertCollectionsSnapshotToMap = collection => {
+  const transformedCollection = collection.docs.map(docSnapdhot => {
+    const { title, items } = docSnapdhot.data();
+
+    return {
+      title,
+      items,
+      routeName: encodeURI(title.toLowerCase()),
+      id: docSnapdhot.id
+    };
+  });
+
+  return transformedCollection.reduce((collectionMap, collection) => {
+    collectionMap[collection.title.toLowerCase()] = collection;
+    return collectionMap;
+  }, {});
 };
 
 // initialize firebaseApp
