@@ -24,7 +24,7 @@ const CheckoutReviewList = ({ cartItems }) => {
         </animated.div>
       ))}
       <div
-        className="empty-cart-items"
+        className="empty-cart"
         revealed={String(Boolean(cartItems.length === 0))}
       >
         Your cart is empty.

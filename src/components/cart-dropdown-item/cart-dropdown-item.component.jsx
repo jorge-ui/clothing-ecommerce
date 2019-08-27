@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './cart-item.styles.scss';
+import './cart-dropdown-item.styles.scss';
 
-const CartItem = ({
+const CartDropdownItem = ({
   item: { imageUrl, price, name, quantity },
   i,
   ...otherProps
@@ -12,7 +12,11 @@ const CartItem = ({
     return () => clearTimeout(tiemout);
   }, [i]);
   return (
-    <div className="cart-item" {...otherProps} revealed={String(reveal)}>
+    <div
+      className="cart-dropdown-item"
+      {...otherProps}
+      revealed={String(reveal)}
+    >
       <div style={{ backgroundImage: `url(${imageUrl})` }} className="img" />
       <div className="item-details">
         <span className="name">{name}</span>
@@ -24,4 +28,4 @@ const CartItem = ({
   );
 };
 
-export default CartItem;
+export default CartDropdownItem;

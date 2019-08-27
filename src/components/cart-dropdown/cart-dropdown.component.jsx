@@ -2,7 +2,7 @@ import React from 'react';
 import './cart-dropdown.styles.scss';
 // Components
 import CustomButton from '../custom-button/custom-button.component';
-import CartItem from '../cart-item/cart-item.component';
+import CartDropdownItem from '../cart-dropdown-item/cart-dropdown-item.component';
 // Modules
 import { animated, useSpring } from 'react-spring';
 import { withRouter } from 'react-router-dom';
@@ -33,13 +33,13 @@ const CartDropdown = ({ revealed, setShowDropdown, cartItems, history }) => {
       onMouseLeave={() => revealed && setShowDropdown(false)}
     >
       <div className="content" revealed={String(revealed)}>
-        <div className="cart-items" count={cartItems.length}>
+        <div className="cart-dropdown-items" count={cartItems.length}>
           {!cartItems.length ? (
             <span className="empty-message">Your cart is empty.</span>
           ) : (
             revealed &&
             cartItems.map((item, i) => (
-              <CartItem key={item.id} item={item} i={i} />
+              <CartDropdownItem key={item.id} item={item} i={i} />
             ))
           )}
         </div>
