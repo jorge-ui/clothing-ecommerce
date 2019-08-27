@@ -6,16 +6,15 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 // Modules
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartQuantity } from '../../redux/cart/cart.selectors';
 
-const Cart = ({ currentUser, cartQuantity }) => {
+const Cart = ({ cartQuantity }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <div className="cart">
       <div
-        className={`${currentUser ? 'revealed' : ''} cart-icon`}
+        className="cart-icon"
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
       >
@@ -29,7 +28,6 @@ const Cart = ({ currentUser, cartQuantity }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
   cartQuantity: selectCartQuantity
 });
 

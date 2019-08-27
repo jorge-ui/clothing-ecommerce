@@ -23,7 +23,6 @@ class CheckoutForm extends Component {
   };
 
   handleChange = e => {
-    console.log(e);
     let { name, value } = e.target;
     this.setState({ [name]: value });
   };

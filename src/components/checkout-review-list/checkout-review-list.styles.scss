@@ -1,0 +1,24 @@
+.checkout-review-list {
+  width: 100%;
+  height: 100%;
+  .animated-item {
+    width: 100%;
+  }
+  .empty-cart-items {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    opacity: 0;
+    font-size: 1.2em;
+    &[revealed=true] {
+      opacity: 1;
+      transition: opacity 300ms;
+    }
+  }
+}

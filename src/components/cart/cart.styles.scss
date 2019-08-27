@@ -5,8 +5,7 @@
     overflow: hidden;
     position: relative;
     height: $headerHeight;
-    width: 0;
-    &.revealed { width: $headerHeight; }
+    width: $headerHeight;
     display: flex;
     justify-content: center;
     align-items: center;
