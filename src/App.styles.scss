@@ -18,11 +18,15 @@ a {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
+      padding: 0 $appXpadding;
       padding-top: $headerHeight;
       width: 100%;
       left: 0;
       top: 0;
       bottom: 0;
       overflow: visible;
+      &.nested {
+         padding-top: 0;
+      }
    }
 }

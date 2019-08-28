@@ -18,28 +18,6 @@ import { easeOutQuart } from './utils/easingFuctions';
 // Actions
 import { setCurrentUser } from './redux/user/user.actions';
 
-const transitionsConfig = {
-  from: {
-    opacity: 0,
-    transform: 'translate(0px, -60px)'
-  },
-  enter: {
-    opacity: 1,
-    transform: 'translate(0px, 0px)'
-  },
-  leave: item => async next => {
-    await next({ overflow: 'hidden', config: { duration: 5 } });
-    await next({
-      opacity: -1,
-      transform: 'translate(0px, 100px)'
-    });
-  },
-  config: {
-    duration: 400,
-    easing: easeOutQuart
-  }
-};
-
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
     let unsubscribeFromAuth = () => null;
@@ -69,28 +47,19 @@ const App = ({ setCurrentUser, currentUser }) => {
       unsubscribeFromAuth();
       unsubscribeFromSnapshot();
     };
-  }, [setCurrentUser]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { location } = useRouter();
   const transitions = useTransition(
     location,
-    location => location.pathname,
+    location => location.pathname.match(/\/\w*/)[0], // Top level, not nested pathname = key
     transitionsConfig
   );
-  const appPadding = !location.pathname.includes('shop') ? '8vw' : '0vw';
   return (
     <div className="App">
       <Header />
       {transitions.map(({ item, props, key }) => (
-        <animated.div
-          key={key}
-          style={{
-            ...props,
-            paddingLeft: appPadding,
-            paddingRight: appPadding
-          }}
-          className="transition-div"
-        >
+        <animated.div key={key} style={props} className="transition-div">
           <Switch location={item}>
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
@@ -111,6 +80,28 @@ const App = ({ setCurrentUser, currentUser }) => {
       ))}
     </div>
   );
+};
+
+const transitionsConfig = {
+  from: {
+    opacity: 0,
+    transform: 'translate(0px, -60px)'
+  },
+  enter: {
+    opacity: 1,
+    transform: 'translate(0px, 0px)'
+  },
+  leave: item => async next => {
+    await next({ overflow: 'hidden', config: { duration: 5 } });
+    await next({
+      opacity: -1,
+      transform: 'translate(0px, 100px)'
+    });
+  },
+  config: {
+    duration: 400,
+    easing: easeOutQuart
+  }
 };
 
 const mapStateToProps = createStructuredSelector({

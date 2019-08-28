@@ -42,14 +42,14 @@ export const createUserDoc = async (userAuth, additionalData) => {
 };
 
 export const convertCollectionsSnapshotToMap = collection => {
-  const transformedCollection = collection.docs.map(docSnapdhot => {
-    const { title, items } = docSnapdhot.data();
+  const transformedCollection = collection.docs.map(docSnapshot => {
+    const { title, items } = docSnapshot.data();
 
     return {
       title,
       items,
       routeName: encodeURI(title.toLowerCase()),
-      id: docSnapdhot.id
+      id: docSnapshot.id
     };
   });
 
