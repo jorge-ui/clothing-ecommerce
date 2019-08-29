@@ -5,9 +5,16 @@ import CollectionItem from '../../components/collection-item/collection-item.com
 // Moduled
 import { connect } from 'react-redux';
 import { createCollectionSelectorByRouteName } from '../../redux/shop/shop.selectors';
+import { Link } from 'react-router-dom';
 
 const CollectionPage = ({ collection: { items, title } }) => (
   <div className="collection-page">
+    <h1>
+      <Link to="/shop" className="go-back">
+        Back
+      </Link>
+      COLLECTION
+    </h1>
     <h2 className="title">{title.toUpperCase()}</h2>
     <div className="items">
       {items.map(item => (

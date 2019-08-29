@@ -6,6 +6,10 @@ import crownLogo from '../../assets/crown-img.png';
 // Modules
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import StripeCheckout from 'react-stripe-checkout';
+// Redux
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUserEmail } from '../../redux/user/user.selectors';
 
 const stripePublishableKey = 'pk_test_ISm2ExeGCOVKScWl1rmNU1KT00cz3zAHZo';
 class CheckoutForm extends Component {
@@ -19,7 +23,8 @@ class CheckoutForm extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    document.querySelector('button.StripeCheckout').click();
+    // Stripe button must be last child
+    document.querySelector('form.checkout-form > *:last-child').click();
   };
 
   handleChange = e => {
@@ -33,7 +38,7 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    const { price, formdisabled } = this.props;
+    const { price, formdisabled, userEmail } = this.props;
     const priceForStripe = price * 100;
     return (
       <form
@@ -90,10 +95,15 @@ class CheckoutForm extends Component {
           ref={this.stripeButton}
           ComponentClass="div"
           type="button"
+          email={userEmail}
         />
       </form>
     );
   }
 }
 
-export default CheckoutForm;
+const mapStateToProps = createStructuredSelector({
+  userEmail: selectCurrentUserEmail
+});
+
+export default connect(mapStateToProps)(CheckoutForm);

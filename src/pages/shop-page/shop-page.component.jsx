@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import './shop-page.styles.scss';
 // Components
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import CollectionPage from '../collection-page/collection-page.component';
-import WithSpinner from '../../components/with-spinner/with-spinner.component';
+import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
+import CollectionPageContainer from '../collection-page/collection-page.container';
 // Modules
 import { Route, Switch } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
@@ -12,39 +11,38 @@ import { easeOutQuart } from '../../utils/easingFuctions';
 import { connect } from 'react-redux';
 import { fetchCollectionsAsync } from '../../redux/shop/shop.actions';
 import { createStructuredSelector } from 'reselect';
-import {
-  selectCollectionsIsFetching,
-  selectCollectionsIsLoaded
-} from '../../redux/shop/shop.selectors';
+import { selectCollectionsIsLoaded } from '../../redux/shop/shop.selectors';
 
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+const nestIn = 'translate(400px, 0px)';
+const nestOut = 'translate(-400px, 0px)';
 
 const ShopPage = ({
   match,
   location,
-  history,
   collectionsIsLoaded,
   fetchCollectionsAsync
 }) => {
   const shopPage = useRef(null);
+
   useEffect(() => {
     !collectionsIsLoaded && fetchCollectionsAsync();
-    shopPage.current.scrollTo(0, 0);
-  });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const nestIn = 'translate(400px, 0px)';
-  const nestout = 'translate(-400px, 0px)';
+  useEffect(() => {
+    shopPage.current.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const willNest = location.pathname.match(/\/\w*/g).length > 1;
-  const transitions = useTransition(location, location => location.key, {
+
+  const transitions = useTransition(location, location => location.pathname, {
     ...transitionsConfig,
     from: {
-      opacity: 0,
-      transform: willNest ? nestIn : nestout
+      ...transitionsConfig.from,
+      transform: willNest ? nestIn : nestOut
     },
     leave: {
-      opacity: -0.5,
-      transform: willNest ? nestout : nestIn
+      ...transitionsConfig.leave,
+      transform: willNest ? nestOut : nestIn
     }
   });
 
@@ -52,31 +50,16 @@ const ShopPage = ({
     <div ref={shopPage} className="shop-page">
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props} className="transition-div nested">
-          <h1>
-            {willNest && <span onClick={() => history.goBack()}>Back</span>}
-            COLLECTION{!willNest && 'S'}
-          </h1>
           <Switch location={item}>
             <Route
               exact
               path={`${match.path}`}
-              isLoading={!collectionsIsLoaded}
-              render={props => (
-                <CollectionsOverviewWithSpinner
-                  isLoading={!collectionsIsLoaded}
-                  {...props}
-                />
-              )}
+              component={CollectionsOverviewContainer}
             />
             <Route
               exact
               path={`${match.url}/:collectionName`}
-              render={props => (
-                <CollectionPageWithSpinner
-                  isLoading={!collectionsIsLoaded}
-                  {...props}
-                />
-              )}
+              component={CollectionPageContainer}
             />
           </Switch>
         </animated.div>
@@ -86,6 +69,9 @@ const ShopPage = ({
 };
 
 const transitionsConfig = {
+  initial: {
+    transform: 'translate(0px, 0px)'
+  },
   from: {
     opacity: 0
   },
@@ -103,7 +89,6 @@ const transitionsConfig = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  collectionsIsFetching: selectCollectionsIsFetching,
   collectionsIsLoaded: selectCollectionsIsLoaded
 });
 
