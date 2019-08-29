@@ -8,11 +8,12 @@ import { useTransition, animated } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
 
 const CollectionItem = ({ item, addItem }) => {
+  const isMobileViewport = window.innerWidth < 576;
   // Component state
   const [pressed, setPressed] = useState(false);
 
   // Gestures
-  const bind = useDrag(({ down }) => setPressed(down));
+  const bind = useDrag(({ down }) => !isMobileViewport && setPressed(down));
 
   // Transition group
   const transition = useTransition(pressed, null, transitionConfig);

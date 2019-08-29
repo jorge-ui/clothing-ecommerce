@@ -5,3 +5,27 @@
     flex: wrap;
   }
 }
+
+@media only screen and (max-width: 575px) {
+  .signin-and-signup {
+    position: relative;
+    padding: 0 20px;
+    font-size: 1.2em;
+    .container {
+      box-sizing: border-box;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      & > * {
+        width: 100%;
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        & > * {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

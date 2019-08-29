@@ -3,6 +3,7 @@ import './checkout-page.styles.scss';
 // Components
 import CheckoutForm from '../../components/checkout-form/checkout-form.component';
 import CheckoutReviewList from '../../components/checkout-review-list/checkout-review-list.component';
+import Footer from '../../components/footer/footer.component';
 // Modules
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -38,6 +39,7 @@ const CheckoutPage = ({ cartTotal }) => (
         <CheckoutForm price={cartTotal} formdisabled={Boolean(!cartTotal)} />
       </div>
     </div>
+    {window.innerWidth < 576 && <Footer />}
   </div>
 );
 

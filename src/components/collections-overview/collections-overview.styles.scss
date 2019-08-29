@@ -1,3 +1,5 @@
+@import "../variables";
+
 .collections-overview {
-  width: 84vw;
+  width: 100vw - var(--Xpadding) - var(--Xpadding);
 }

@@ -94,3 +94,23 @@ $panelOrder: 100% - $panelReview;
     width: 100%;
   }
 }
+
+@media only screen and (max-width: 575px) {
+  .checkout-page {
+    padding: $headerHeight*2 13px;
+    display: block;
+    align-items: unset;
+    .checkout-panel {
+      flex-direction: column;
+      height: fit-content;
+      position: unset;
+      .panel-review, .panel-order {
+        position: unset;
+        width: 100%;
+        height: fit-content;
+        overflow: unset;
+        max-width: unset;
+      }
+    }
+  }
+}

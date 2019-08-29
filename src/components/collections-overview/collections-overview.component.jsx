@@ -2,6 +2,7 @@ import React from 'react';
 import './collections-overview.styles.scss';
 // Components
 import CollectionPreview from '../collection-preview/collection-preview.component';
+import Footer from '../footer/footer.component';
 // Modules
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,6 +14,7 @@ const CollectionsOverview = ({ shopCollections }) => (
     {shopCollections.map(({ id, ...rest }) => (
       <CollectionPreview key={id} {...rest} />
     ))}
+    <Footer />
   </div>
 );
 

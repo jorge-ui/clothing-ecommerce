@@ -25,13 +25,12 @@ $appXpadding: 8vw;
 }
 @mixin fine-scrollbar-shop {
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
     background-color: transparent;
   }
   
   &::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
   }
   
   &::-webkit-scrollbar-thumb {
@@ -56,4 +55,16 @@ $appXpadding: 8vw;
     box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
   }
+}
+
+@media only screen and (max-width: 992px) {
+  $appXpadding: 4vw;
+}
+
+@media only screen and (max-width: 768px) {
+  $appXpadding: 2vw;
+}
+
+@media only screen and (max-width: 575px) {
+  $appXpadding: 0vw;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './shop-page.styles.scss';
 // Components
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
@@ -22,15 +22,9 @@ const ShopPage = ({
   collectionsIsLoaded,
   fetchCollectionsAsync
 }) => {
-  const shopPage = useRef(null);
-
   useEffect(() => {
     !collectionsIsLoaded && fetchCollectionsAsync();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    shopPage.current.scrollTo(0, 0);
-  }, [location.pathname]);
 
   const willNest = location.pathname.match(/\/\w*/g).length > 1;
 
@@ -47,23 +41,29 @@ const ShopPage = ({
   });
 
   return (
-    <div ref={shopPage} className="shop-page">
-      {transitions.map(({ item, props, key }) => (
-        <animated.div key={key} style={props} className="transition-div nested">
-          <Switch location={item}>
-            <Route
-              exact
-              path={`${match.path}`}
-              component={CollectionsOverviewContainer}
-            />
-            <Route
-              exact
-              path={`${match.url}/:collectionName`}
-              component={CollectionPageContainer}
-            />
-          </Switch>
-        </animated.div>
-      ))}
+    <div className="shop-page">
+      <div className="container">
+        {transitions.map(({ item, props, key }) => (
+          <animated.div
+            key={key}
+            style={props}
+            className="transition-div nested"
+          >
+            <Switch location={item}>
+              <Route
+                exact
+                path={`${match.path}`}
+                component={CollectionsOverviewContainer}
+              />
+              <Route
+                exact
+                path={`${match.url}/:collectionName`}
+                component={CollectionPageContainer}
+              />
+            </Switch>
+          </animated.div>
+        ))}
+      </div>
     </div>
   );
 };

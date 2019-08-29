@@ -34,3 +34,32 @@
     justify-content: space-between;
   }
 }
+
+@media only screen and (max-width: 575px) {
+  .collection-preview {
+    margin-bottom: 10px;
+    overflow: visible;
+    .title {
+      span {
+        padding-left: 10px;
+        color: rgb(119, 160, 201);
+      }
+    }
+    .preview {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      padding: 20px 0;
+      -webkit-overflow-scrolling: touch;
+      .collection-item {
+        min-width: 60vw;
+        margin-right: 30px;
+        &:last-child {
+          margin-right: 50px;
+        }
+      }
+    }
+  }
+}

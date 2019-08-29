@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.styles.scss';
 // Components
 import HomePage from './pages/home-page/home-page.component';
@@ -19,6 +19,7 @@ import { easeOutQuart } from './utils/easingFuctions';
 import { setCurrentUser } from './redux/user/user.actions';
 
 const App = ({ setCurrentUser, currentUser }) => {
+  const transitionDiv = useRef(null);
   useEffect(() => {
     let unsubscribeFromAuth = () => null;
     let unsubscribeFromSnapshot = () => null;
@@ -50,6 +51,11 @@ const App = ({ setCurrentUser, currentUser }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { location } = useRouter();
+
+  useEffect(() => {
+    transitionDiv.current.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const transitions = useTransition(
     location,
     location => location.pathname.match(/\/\w*/)[0], // Top level, not nested pathname = key
@@ -59,7 +65,12 @@ const App = ({ setCurrentUser, currentUser }) => {
     <div className="App">
       <Header />
       {transitions.map(({ item, props, key }) => (
-        <animated.div key={key} style={props} className="transition-div">
+        <animated.div
+          ref={transitionDiv}
+          key={key}
+          style={props}
+          className="transition-div"
+        >
           <Switch location={item}>
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />

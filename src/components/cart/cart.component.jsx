@@ -17,6 +17,7 @@ const Cart = ({ cartQuantity }) => {
         className="cart-icon"
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
+        onTouchEnd={() => setShowDropdown(!showDropdown)}
       >
         <Icon className="icon" />
         <span className="item-count">{cartQuantity}</span>

@@ -3,13 +3,14 @@
 .collection-page {
   display: flex;
   flex-direction: column;
-  width: 100vw - ($appXpadding * 2);
   .title {
     font-size: 38px;
     margin: 0 auto 30px;
   }
   .go-back {
-    font-size: .7em;
+    width: fit-content;
+    margin-top: 21px;
+    font-size: 1em;
     margin-right: 10px;
     padding: 0 10px;
     padding-left: 12px;
@@ -32,6 +33,31 @@
     
     & .collection-item {
       margin-bottom: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .collection-page {
+    position: relative;
+    .go-back {
+      top: 0;
+      z-index: 100;
+      font-size: 1.6em;
+      &:hover {
+        transform: scale(1.1);
+        background-color: rgb(205, 225, 248);
+      }
+    }
+    .items {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 100%;
+      justify-content: center;
+      
+      .collection-item {
+        margin-bottom: 20px;
+      }
     }
   }
 }
