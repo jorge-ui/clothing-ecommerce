@@ -4,11 +4,16 @@
   box-sizing: border-box;
   height: fit-content;
   width: 100%;
+  overflow: visible;
   .container {
+    overflow: visible;
     position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
+    * {
+      overflow: visible;
+    }
     h1 {
       display: flex;
       align-items: center;
@@ -17,6 +22,6 @@
 }
 @media only screen and (max-width: 575px) {
   .shop-page {
-    padding: 0 20px;
+    padding: 0;
   }
 }

@@ -3,3 +3,14 @@
 .collections-overview {
   width: 100vw - var(--Xpadding) - var(--Xpadding);
 }
+
+@media only screen and (max-width: 575px) {
+  .collections-overview {
+    h1 {
+      margin: 0;
+      padding: 20px 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgb(231, 231, 231) 100%);
+      padding-left: 10px;
+    }
+  }
+}

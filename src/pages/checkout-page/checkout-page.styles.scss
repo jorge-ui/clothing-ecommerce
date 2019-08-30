@@ -4,13 +4,12 @@ $panelReview: 60%;
 $panelOrder: 100% - $panelReview;
 
 .checkout-page {
-  width: 80%;
   height: 100vh;
-  max-height: 100vh;
   margin: 0 auto;
   margin-top: -$headerHeight;
   box-sizing: border-box;
   padding-top: $headerHeight;
+  overflow: visible;
   display: flex;
   align-items: center;
   & * {
@@ -18,7 +17,8 @@ $panelOrder: 100% - $panelReview;
   }
 
   .checkout-panel {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     height: 90%;
     overflow: hidden;
     display: flex;
@@ -27,7 +27,7 @@ $panelOrder: 100% - $panelReview;
     .panel-review {
       position: relative;
       flex-basis: $panelReview;
-      overflow-y: scroll;
+      overflow-y: scroll !important;
       overflow-x: hidden;
       @include fine-scrollbar-clean;
       .review-header {
@@ -85,13 +85,17 @@ $panelOrder: 100% - $panelReview;
 
 @media only screen and (max-width: 1200px) {
   .checkout-page {
-    width: 90%;
+    .checkout-panel {
+      width: 90%;
+    }
   }
 }
 
 @media only screen and (max-width: 992px) {
   .checkout-page {
-    width: 100%;
+    .checkout-panel {
+      width: 100%;      
+    }
   }
 }
 
@@ -100,6 +104,7 @@ $panelOrder: 100% - $panelReview;
     padding: $headerHeight*2 13px;
     display: block;
     align-items: unset;
+    height: fit-content;
     .checkout-panel {
       flex-direction: column;
       height: fit-content;
@@ -108,8 +113,29 @@ $panelOrder: 100% - $panelReview;
         position: unset;
         width: 100%;
         height: fit-content;
-        overflow: unset;
+        overflow: unset !important;
         max-width: unset;
+      }
+      .panel-review {
+        .review-items {
+          .checkout-review-list {
+            .checkout-review-item {
+              .image-container {
+                padding-left: 10px;
+                padding-right: 10px;
+              }
+            }
+          }
+        }
+      }
+      .panel-order {
+        background: linear-gradient(to bottom, $appGrey 0%, rgba(255,255,255,0) 100%);
+        .order-header {
+          display: none;
+        }
+        .input {
+          background-color: transparent;
+        }
       }
     }
   }

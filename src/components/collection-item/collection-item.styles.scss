@@ -1,7 +1,7 @@
 @import "../variables";
 
 .collection-item {
-  overflow: hidden;
+  overflow: hidden !important;
   position: relative;
   flex-basis: 23%;
   flex-direction: column;
@@ -124,9 +124,17 @@
 
 @media only screen and (max-width: 575px) {
   .collection-item {
+    height: 300px;
     .add-to-cart-button {
       transform: translateX(0);
       opacity: 1;
+    }
+    .image {
+      height: 90%;
+    }
+    .collection-footer {
+      font-size: 1.3em;
+      height: 10%;
     }
   }
 }

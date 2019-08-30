@@ -30,7 +30,7 @@
       transition: opacity 400ms 100ms;
     }
     .cart-dropdown-items {
-      overflow-y: scroll;
+      overflow-y: scroll !important;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       width: 90%;
