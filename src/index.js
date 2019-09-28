@@ -11,9 +11,12 @@ import { store, persistor } from './redux/store';
 
 library.add(faPlus, faCartPlus);
 
+const rootPath =
+  process.env.NODE_ENV === 'development' ? '/' : '/clothing-ecommerce/';
+
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={rootPath}>
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
