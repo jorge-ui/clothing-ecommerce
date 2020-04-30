@@ -7,11 +7,10 @@ const middlewares = [thunk];
 
 const storeEnchancer = [];
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') 
   storeEnchancer.push(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-}
 
 export const store = createStore(
   rootReducer,
